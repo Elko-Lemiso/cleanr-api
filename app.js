@@ -4,10 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('hbs');
-var cors = require('cors')
+var cors = require('cors');
+var connectionPassword = process.env.CONNECTIONPASSWORD;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+mongoose
+  .connect(`${connectionPassword}`, {useNewUrlParser: true})
+  .then(x => {
+    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+  })
+  .catch(err => {
+    console.error('Error connecting to mongo', err)
+  });
 
 var app = express();
 app.use(cors({
