@@ -44,14 +44,14 @@ router.post('/signup', uploadCloud.single('profilePicture'), (req, res, next) =>
     User
         .create(newUser)
         .then((user)=>{
+          console.log(user);
           let {email, firstname, lastname, id, userType} = user;
           let sessionData = {email, firstname, lastname, id, userType};
           req.session.user = sessionData;
           res.status(200).json(sessionData);
         })
-        .catch((error)=> {
-          if(error.name === "ValidationError") next(createError(400, error.message))
-          else next(createError(500));
+        .catch(error =>{
+          console.log('This is the invalid field ->', error)
       })
 })
 

@@ -2,15 +2,14 @@ require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var mongoose = require('mongoose');
-var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var connectionPassword = process.env.CONNECTIONPASSWORD;
 var bodyParser   = require('body-parser');
 var secret = process.env.SECRET;
-var session    = require("express-session");
-// var MongoStore = require("connect-mongo")(session);
+var session = require("express-session");
+var MongoStore = require("connect-mongo")(session);
 
 mongoose
   .connect(`${connectionPassword}`, {
@@ -31,14 +30,22 @@ app.use(cors({
   credentials: true
 }))
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.json())
+
+app.use(session({
+  secret: `${secret}`,
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 86400000 },
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  })
+}));
 
 
 app.use('/', require('./routes/index'));
@@ -57,7 +64,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json(err.status);
 });
 
 module.exports = app;

@@ -13,27 +13,11 @@ const moneySpendSchema = new Schema({
   timestamps: { createdAt: "created_at"}
 })
 
-const messageSentSchema = new Schema({
-  sendTo: {type: Schema.ObjectId},
-  message: {type: String}
-}, {
-  timestamps: {createdAt: "created_at"}
-})
-
-const messageRecievedSchema = new Schema({
-  receivedFrom: {type: Schema.ObjectId},
-  message: {type: String}
-}, {
-  timestamps: {createdAt: "created_at"}
-})
-
 const pictureSchema = new Schema({
   fieldname: { type: String}, 
   filename: { type: String},
   originalname: { type: String},
   path: { type: String}, 
-}, {
-  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });
 
 const userSchema = new Schema({
@@ -48,16 +32,18 @@ const userSchema = new Schema({
     trim: true
   },
   password: {type: String, required: [true, 'Password is required.']},
+  userType: {type: String, enum :['client','cleaner'], default: 'client', required: [true, 'User type is required.']},
   profilePicture : pictureSchema,
   bio: {type: String},
-  userType: {type: String, enum :['client','cleaner'], default: 'client', required: [true, 'User type is required.']},
+  chamberOfCommerceNr: {type: Number},
   jobsUploaded: {type: Number},
   moneySpend: [moneySpendSchema],
-  jobsDone: {type: Number},
-  moneyMade: [moneyMadeSchema],
-  messageSent: [messageSentSchema],
-  messageRecieved: [messageRecievedSchema],
-  userReviews: [{type: Schema.ObjectId , ref: 'UserReview' }],
+  jobsTaken: {type: Number},
+  moneyEarned: [moneyMadeSchema],
+  reviewsWritten: [{type: Schema.ObjectId , ref: 'UserReview' }],
+  reviewsReceived: [{type: Schema.ObjectId , ref: 'UserReview' }],
+}, {
+  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 })
 
 const User = mongoose.model('User', userSchema, 'users');
