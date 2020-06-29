@@ -14,10 +14,10 @@ const moneySpendSchema = new Schema({
 })
 
 const pictureSchema = new Schema({
-  fieldname: { type: String}, 
-  filename: { type: String},
-  originalname: { type: String},
-  path: { type: String}, 
+  fieldname: { type: String, default: 'basic-avatar'}, 
+  filename: { type: String, default: 'basic-avatar'},
+  originalname: { type: String, default: 'basic-avatar'},
+  path: { type: String, default: 'https://res.cloudinary.com/dconurgxl/image/upload/v1593453874/avatar-icon-vector_zhcqk3.jpg'}, 
 });
 
 const addressSchema = new Schema({
@@ -44,7 +44,7 @@ const userSchema = new Schema({
   password: {type: String, required: [true, 'Password is required.']},
   userType: {type: String, enum :['client','cleaner'], default: 'client', required: [true, 'User type is required.']},
   address: addressSchema,
-  profilePicture : pictureSchema,
+  profilePicture: pictureSchema,
   bio: {type: String},
   chamberOfCommerceNr: {type: Number},
   jobsUploaded: {type: Number},
