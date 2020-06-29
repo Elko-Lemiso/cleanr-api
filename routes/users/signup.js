@@ -9,8 +9,6 @@ router.post('/signup', uploadCloud.single('profilePicture'), (req, res, next) =>
     const myPlaintextPassword = req.body.password;
     const hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);
 
-    debugger
-
     let newUser = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
