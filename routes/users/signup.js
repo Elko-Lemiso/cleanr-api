@@ -9,12 +9,23 @@ router.post('/signup', uploadCloud.single('profilePicture'), (req, res, next) =>
     const myPlaintextPassword = req.body.password;
     const hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);
 
+    debugger
+
     let newUser = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
         password: hash,
-        userType: req.body.userType
+        userType: req.body.userType,
+        address: {
+          street: req.body.street,
+          houseNr: req.body.houseNr,
+          houseNrAddition: req.body.houseNrAddition,
+          zipCode: req.body.zipCode,
+          city: req.body.city,
+          long: req.body.long,
+          lat: req.body.lat,
+        }
     }
     
     if (req.file) {
@@ -27,7 +38,8 @@ router.post('/signup', uploadCloud.single('profilePicture'), (req, res, next) =>
     }
 
     // to check if all fields are filled
-    if (!newUser.email || !newUser.password || !newUser.firstname || !newUser.lastname || !newUser.userType) {
+    if (!newUser.email || !newUser.password || !newUser.firstname || !newUser.lastname || !newUser.userType 
+      || !newUser.address.street || !newUser.address.houseNr || !newUser.address.zipCode || !newUser.address.city) {
         res.json({ errorMessage: 'Please fill in the required fields.' });
         return;
     }

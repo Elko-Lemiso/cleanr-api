@@ -20,6 +20,16 @@ const pictureSchema = new Schema({
   path: { type: String}, 
 });
 
+const addressSchema = new Schema({
+  street: { type: String, required: [true, 'Street is required.']}, 
+  houseNr: { type: Number, required: [true, 'House number is required.']},
+  houseNrAddition: { type: String, default: ''},
+  zipCode: { type: String, required: [true, 'Zip code is required.']},
+  city: { type: String, required: [true, 'City is required.']},
+  long: {type: Number, default: ''},
+  lat: {type: Number, default: ''}
+})
+
 const userSchema = new Schema({
   firstname: {type: String, required: [true, 'Firstname is required.']},
   lastname: {type: String, required: [true, 'Lastname is required.']},
@@ -33,6 +43,7 @@ const userSchema = new Schema({
   },
   password: {type: String, required: [true, 'Password is required.']},
   userType: {type: String, enum :['client','cleaner'], default: 'client', required: [true, 'User type is required.']},
+  address: addressSchema,
   profilePicture : pictureSchema,
   bio: {type: String},
   chamberOfCommerceNr: {type: Number},
