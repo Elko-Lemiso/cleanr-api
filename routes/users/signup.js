@@ -25,7 +25,8 @@ router.post('/signup', uploadCloud.single('profilePicture'), (req, res, next) =>
           city: req.body.city,
           long: req.body.long,
           lat: req.body.lat,
-        }
+        },
+        profilePicture: {}
     }
     
     if (req.file) {
