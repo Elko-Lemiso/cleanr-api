@@ -14,7 +14,6 @@ router.post("/login", (req, res, next)=>{
     }
   User.findOne({"email": email})
   .then(user =>{
-        debugger
         if (!user) {
           res.json({errorMessage: "The email doesn't exist." });
           return;
