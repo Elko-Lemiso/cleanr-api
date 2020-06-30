@@ -46,6 +46,7 @@ const userSchema = new Schema({
   address: addressSchema,
   profilePicture: pictureSchema,
   bio: {type: String},
+  telNr: {type: String},
   chamberOfCommerceNr: {type: Number},
   jobsUploaded: {type: Number},
   moneySpend: [moneySpendSchema],
