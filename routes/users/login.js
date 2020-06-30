@@ -4,6 +4,7 @@ const User = require('../../models/User');
 const bcrypt = require('bcrypt');
 
 router.post("/login", (req, res, next)=>{
+  debugger
   const email = req.body.email;
   const password = req.body.password;
   if (email === "" || password === "") {
