@@ -19,10 +19,11 @@ router.post("/login", (req, res, next)=>{
           return;
         }
         if(bcrypt.compareSync(password, user.password)){
+          debugger
           req.session.user = user;
           console.log(req.session);
           let sessionData = req.session.user
-          res.status(200).json({sessionData});
+          res.status(200).json({sessionData})
         }else{
           res.status(401).json({errorMessage: 'Unauthorized, wrong password'});
         }

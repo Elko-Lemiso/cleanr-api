@@ -51,7 +51,7 @@ app.use(session({
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users/signup'));
 app.use('/users', require('./routes/users/login'));
-
+app.use('/users', require('./routes/users/logout'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
