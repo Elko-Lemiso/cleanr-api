@@ -10,6 +10,7 @@ var bodyParser   = require('body-parser');
 var secret = process.env.SECRET;
 var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
+var createError = require('http-errors');
 
 mongoose
   .connect(`${connectionPassword}`, {
@@ -51,7 +52,9 @@ app.use(session({
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users/signup'));
 app.use('/users', require('./routes/users/login'));
+app.use('/users', require('./routes/users/userData'));
 app.use('/users', require('./routes/users/logout'));
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
