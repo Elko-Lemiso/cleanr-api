@@ -23,11 +23,11 @@ const pictureSchema = new Schema({
 const addressSchema = new Schema({
   street: { type: String, required: [true, 'Street is required.']}, 
   houseNr: { type: Number, required: [true, 'House number is required.']},
-  houseNrAddition: { type: String, default: ''},
+  houseNrAddition: { type: String},
   zipCode: { type: String, required: [true, 'Zip code is required.']},
   city: { type: String, required: [true, 'City is required.']},
-  long: {type: Number, default: ''},
-  lat: {type: Number, default: ''}
+  long: {type: Number},
+  lat: {type: Number}
 })
 
 const userSchema = new Schema({
