@@ -2,10 +2,10 @@ const express = require('express');
 const router  = express.Router();
 
 router.get("/logout", (req, res, next) => {
+    console.log("hjhfoihfpihwf");
     req.session.destroy((err) => {
-        console.log('logged out!')
-        res.json({message: "logged out"});
-    });
+        res.json({message : "Logged out"});
+    })
 });
 
 module.exports = router;
