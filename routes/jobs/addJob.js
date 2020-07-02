@@ -3,7 +3,7 @@ const router  = express.Router();
 const Job = require('../../models/Job')
 const uploadCloud = require('../../config/cloudinary');
 
-router.post('/addJob', uploadCloud.multiple('profilePicture'), (req, res, next) =>{
+router.post('/addjob', uploadCloud.multiple('profilePicture'), (req, res, next) =>{
     let newJob = {
         title: req.body.title,
         description: req.body.description,
