@@ -5,6 +5,9 @@ const uploadCloud = require('../../config/cloudinary');
 
 router.post('/editprofile', (req, res, next)=>{
   debugger
+
+  var parsedProfileUpdate = JSON.parse(req.body);
+  
   const findUser = req.params.userid;
   const change = {
     firstname: req.body.firstname,
