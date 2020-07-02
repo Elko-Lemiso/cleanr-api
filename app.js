@@ -33,7 +33,7 @@ app.use(cors({
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(bodyParser.json())
 
@@ -55,7 +55,7 @@ app.use('/users', require('./routes/users/login'));
 app.use('/users', require('./routes/users/logout'));
 app.use('/users', require('./routes/users/userData'))
 app.use('/users', require('./routes/users/editProfile'));
-app.use(('/jobs'), require('./routes/jobs/addjob'));
+app.use(('/jobs'), require('./routes/jobs/postJob'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
