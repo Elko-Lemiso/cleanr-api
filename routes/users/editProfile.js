@@ -6,9 +6,7 @@ const uploadCloud = require('../../config/cloudinary');
 router.post('/editprofile', (req, res, next)=>{
   debugger
 
-  var parsedProfileUpdate = JSON.parse(req.body);
-  
-  const findUser = req.params.userid;
+  const findUser = req.body._id;
   const change = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -16,13 +14,13 @@ router.post('/editprofile', (req, res, next)=>{
     // password: hash,
     userType: req.body.userType,
     address: {
-      street: req.body.street,
-      houseNr: req.body.houseNr,
-      houseNrAddition: req.body.houseNrAddition,
-      zipCode: req.body.zipCode,
-      city: req.body.city,
-      long: req.body.long,
-      lat: req.body.lat,
+      street: req.body.address.street,
+      houseNr: req.body.address.houseNr,
+      houseNrAddition: req.body.address.houseNrAddition,
+      zipCode: req.body.address.zipCode,
+      city: req.body.address.city,
+      long: req.body.address.long,
+      lat: req.body.address.lat,
     },
     bio: req.body.bio,
     telNr: req.body.telNr,
@@ -34,28 +32,32 @@ router.post('/editprofile', (req, res, next)=>{
       res.json({message: response});
     })
     .catch(error=>{
-      console.log(error, "Error updating userprofile")
+      res.json({error: error});
+      console.log(error, "Error updating userprofile");
     })
 })
 
-// router.post('/editprofilepicture', uploadCloud.single("profilePicture"), (req, res, next)=>{
-//   const findUser = req.params.userid;
-//   const change = {
-//     profilePicture: {
-//       fieldname: req.file.fieldname,
-//       filename: req.file.filename,
-//       originalname: req.file.originalname,
-//       path: req.file.path
-//     }
-//   }
+router.post('/editprofilepicture/:userid', uploadCloud.single('profilePicture'), (req, res, next)=>{
+  debugger
 
-//   User.findByIdAndUpdate(findUser, change)
-//     .then(()=>{
-//         res.render('user/editProfile');
-//     })
-//     .catch(error=>{
-//         console.log(error, "Error updating userprofile")
-//     })
-// })
+  const findUser = req.params.userid;
+  const change = {
+    profilePicture: {
+      fieldname: req.file.fieldname,
+      filename: req.file.filename,
+      originalname: req.file.originalname,
+      path: req.file.path
+    }
+  }
+
+  User.findByIdAndUpdate(findUser, change)
+    .then((response)=>{
+        res.json({message: response});
+    })
+    .catch(error=>{
+      res.json({error: error});
+      console.log(error, "Error updating profile picture");
+    })
+})
 
 module.exports = router;
