@@ -55,7 +55,7 @@ app.use('/users', require('./routes/users/login'));
 app.use('/users', require('./routes/users/logout'));
 app.use('/users', require('./routes/users/userData'))
 app.use('/users', require('./routes/users/editProfile'));
-app.use('/jobs'), require('./routes/jobs/addjob')
+app.use(('/jobs'), require('./routes/jobs/addjob'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
