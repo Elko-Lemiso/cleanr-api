@@ -56,8 +56,12 @@ app.use('/users', require('./routes/users/logout'));
 app.use('/users', require('./routes/users/userData'))
 app.use('/users', require('./routes/users/editProfile'));
 app.use(('/jobs'), require('./routes/jobs/postJob'));
+<<<<<<< HEAD
 app.use('/users', require('./routes/users/getGeoLocation'));
 
+=======
+app.use(('/jobs'), require('./routes/jobs/editJob'));
+>>>>>>> 34a11aa873fcc3ac71b0a7bf2dd432056bae50d9
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
