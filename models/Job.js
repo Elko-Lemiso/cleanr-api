@@ -3,11 +3,11 @@ const { ObjectId, Date } = require('mongoose');
 const Schema = mongoose.Schema;
 
 const addressSchema = new Schema({
-    street: { type: String, required: [true, 'Street is required.']}, 
-    houseNr: { type: Number, required: [true, 'House number is required.']},
+    street: { type: String}, 
+    houseNr: { type: Number},
     houseNrAddition: { type: String, default: ''},
-    zipCode: { type: String, required: [true, 'Zip code is required.']},
-    city: { type: String, required: [true, 'City is required.']},
+    zipCode: { type: String},
+    city: { type: String},
     long: {type: Number, default: ''},
     lat: {type: Number, default: ''}
   })
@@ -24,7 +24,7 @@ const jobSchema = new Schema({
   description: {type: String, required: [true, 'description is required.']},
   applicants : [{type: Schema.ObjectId , ref: 'User' }],
   cleanerId: {type: Schema.ObjectId , ref: 'User'},
-  rate : {type : Number, required : [true, "You need to indicate a rate"]},
+  rate : {type : Number},
   address: addressSchema,
   images:[pictureSchema],
   dueDate : {type : Date}

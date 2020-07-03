@@ -3,35 +3,36 @@ const router  = express.Router();
 const Job = require('../../models/Job')
 const uploadCloud = require('../../config/cloudinary');
 
-router.post('/postJob', uploadCloud.array('profilePicture'), (req, res, next) =>{
+router.post('/postJob', uploadCloud.array('images'), (req, res, next) =>{
     let newJob = {
         title: req.body.title,
         description: req.body.description,
         rate: req.body.rate,
-        dueDate: req.body.dueDate,
+        dueDate: null,
+        cleanerId : null,
+        applicants : [null],
         address: {
-          street: req.body.address.street,
-          houseNr: req.body.address.houseNr,
-          houseNrAddition: req.body.address.houseNrAddition,
-          zipCode: req.body.address.zipCode,
-          city: req.body.address.city,
-          long: req.body.address.long,
-          lat: req.body.address.lat,
+          street: null,
+          houseNr: null,
+          houseNrAddition: null,
+          zipCode: null,
+          city: null,
+          long: null,
+          lat: null,
         },
-        images: []
+        images: [null]
     }
-    if (req.files) {
-        newJob.images.push({
-            fieldname: req.files.fieldname,
-            filename: req.files.filename,
-            originalname: req.files.originalname,
-            path: req.files.path
-        })
-    }
+    // if (req.files) {
+    //     newJob.images.push({
+    //         fieldname: req.files.fieldname,
+    //         filename: req.files.filename,
+    //         originalname: req.files.originalname,
+    //         path: req.files.path
+    //     })
+    // }
 
     // to check if all fields are filled
-    if (!newJob.title || !newJob.description || !newJob.rate || !newJob.dueDate 
-      || !newJob.address.street || !newJob.address.houseNr || !newJob.address.zipCode || !newJob.address.city) {
+    if (!newJob.title || !newJob.description) {
         debugger
         res.json({ errorMessage: 'Please fill in the required fields.' });
         return;
@@ -39,7 +40,7 @@ router.post('/postJob', uploadCloud.array('profilePicture'), (req, res, next) =>
     Job
         .create(newJob)
         .then((job)=>{
-        console.log(job)
+          console.log(job)
           res.status(200).json(job);
         })
         .catch(error =>{
