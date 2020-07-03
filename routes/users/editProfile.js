@@ -4,7 +4,6 @@ const User = require('../../models/User');
 const uploadCloud = require('../../config/cloudinary');
 
 router.post('/editprofile', (req, res, next)=>{
-  debugger
 
   const findUser = req.body._id;
   const change = {
@@ -38,7 +37,6 @@ router.post('/editprofile', (req, res, next)=>{
 })
 
 router.post('/editprofilepicture/:userid', uploadCloud.single('profilePicture'), (req, res, next)=>{
-  debugger
 
   const findUser = req.params.userid;
   const change = {
