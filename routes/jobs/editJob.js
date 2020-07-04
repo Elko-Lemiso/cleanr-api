@@ -24,10 +24,7 @@ router.post('/editJob', uploadCloud.array('images'), (req, res, next)=>{
           lat: req.body.address.lat,
         }
   }
-
-
-   
-  Job.findByIdAndUpdate(findJob, change)
+  Job.update(findJob, change)
     .then((response)=>{
       debugger
       res.json({message: response});
@@ -39,13 +36,9 @@ router.post('/editJob', uploadCloud.array('images'), (req, res, next)=>{
 })
 
 router.post('/editJob/images', uploadCloud.array('images'), (req, res, next)=>{
-  debugger
-
   const findJob = req.body.jobId;
-
   let images = []
   if (req.files) {
-    debugger
    req.files.forEach(file => {
         images.push({
            fieldname: file.fieldname,
@@ -55,14 +48,11 @@ router.post('/editJob/images', uploadCloud.array('images'), (req, res, next)=>{
        })
      })
    }
-
   let change = {
         images: images
-  }
-
-
-   
-  Job.findByIdAndUpdate(findJob, change)
+  }   
+  Job
+    .update({_id: `${findJob}`}, {$push : {images : {change}}})
     .then((response)=>{
       debugger
       res.json({message: response});

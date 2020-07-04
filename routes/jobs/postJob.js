@@ -10,7 +10,7 @@ router.post('/postJob', uploadCloud.array('images'), (req, res, next) =>{
         rate: req.body.rate,
         dueDate: null,
         cleanerId : null,
-        applicants : [null],
+        applicants : [],
         address: {
           street: null,
           houseNr: null,
@@ -20,18 +20,8 @@ router.post('/postJob', uploadCloud.array('images'), (req, res, next) =>{
           long: null,
           lat: null,
         },
-        images: [null]
+        images: []
     }
-    // if (req.files) {
-    //     newJob.images.push({
-    //         fieldname: req.files.fieldname,
-    //         filename: req.files.filename,
-    //         originalname: req.files.originalname,
-    //         path: req.files.path
-    //     })
-    // }
-
-    // to check if all fields are filled
     if (!newJob.title || !newJob.description) {
         debugger
         res.json({ errorMessage: 'Please fill in the required fields.' });
