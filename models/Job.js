@@ -20,6 +20,7 @@ path: { type: String, default: 'https://res.cloudinary.com/dconurgxl/image/uploa
 });
 
 const jobSchema = new Schema({
+  creator: {type: Schema.ObjectId , ref: 'User'},
   title: {type: String, required: [true, 'Title is required']},
   description: {type: String, required: [true, 'description is required.']},
   applicants : [{type: Schema.ObjectId , ref: 'User' }],
@@ -27,7 +28,8 @@ const jobSchema = new Schema({
   rate : {type : Number},
   address: addressSchema,
   images:[pictureSchema],
-  dueDate : {type : Date}
+  dueDate : {type : Date},
+  status : {type: String, required: [true, 'Title is required']},
 }, {
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 })
