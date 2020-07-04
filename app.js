@@ -11,6 +11,7 @@ var secret = process.env.SECRET;
 var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
 var createError = require('http-errors');
+var axios = require('axios').default;
 
 mongoose
   .connect(`${connectionPassword}`, {
@@ -56,6 +57,10 @@ app.use('/users', require('./routes/users/userData'))
 app.use('/users', require('./routes/users/editProfile'));
 app.use('/jobs', require('./routes/jobs/postJob'));
 app.use('/jobs', require('./routes/jobs/editJob'));
+app.use(('/jobs'), require('./routes/jobs/postJob'));
+app.use('/users', require('./routes/users/getGeoLocation'));
+
+app.use(('/jobs'), require('./routes/jobs/editJob'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
