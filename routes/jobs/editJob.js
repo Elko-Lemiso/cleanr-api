@@ -1,16 +1,14 @@
 const express = require('express');
 const router  = express.Router();
-const User = require('../../models/User');
 const uploadCloud = require('../../config/cloudinary');
 const Job = require('../../models/Job');
 
 router.post('/editJob', uploadCloud.array('images'), (req, res, next)=>{
   debugger
-
   const findJob = req.body.jobId;
-  
-  let change = {
-        title: req.body.title,
+  Job
+    .findByIdAndUpdate(findJob, {
+      title: req.body.title,
         description: req.body.description,
         rate: req.body.rate,
         dueDate: req.body.dueDate,
@@ -23,15 +21,14 @@ router.post('/editJob', uploadCloud.array('images'), (req, res, next)=>{
           long: req.body.address.long,
           lat: req.body.address.lat,
         }
-  }
-  Job.update(findJob, change)
+    })
     .then((response)=>{
       debugger
       res.json({message: response});
     })
     .catch(error=>{
       res.json({error: error});
-      console.log(error, "Error updating userprofile");
+      console.log(error, "Error creating job");
     })
 })
 
@@ -53,7 +50,7 @@ router.post('/editJob/images', uploadCloud.array('images'), (req, res, next)=>{
         images: images
   }   
   Job
-    .update({_id: `${findJob}`}, {$push : {images : {change}}})
+    .findByIdAndUpdate({_id: `${findJob}`}, {$push : {images : {change}}})
     .then((response)=>{
       debugger
       res.json({message: response});

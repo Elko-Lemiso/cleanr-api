@@ -16,7 +16,7 @@ const pictureSchema = new Schema({
 fieldname: { type: String, default: 'basic-avatar'}, 
 filename: { type: String, default: 'basic-avatar'},
 originalname: { type: String, default: 'basic-avatar'},
-path: { type: String }, 
+path: { type: String, default: 'https://res.cloudinary.com/dconurgxl/image/upload/v1593679365/cleanR/mess_tcmgmk.jpg'}, 
 });
 
 const jobSchema = new Schema({
