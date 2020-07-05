@@ -1,9 +1,9 @@
 const express = require('express');
 const router  = express.Router();
 const Job = require('../../models/Job')
-const uploadCloud = require('../../config/cloudinary');
 
-router.post('/postJob', uploadCloud.array('images'), (req, res, next) =>{
+router.post('/postJob', (req, res, next) =>{
+    debugger
     let newJob = {
         title: req.body.title,
         description: req.body.description,

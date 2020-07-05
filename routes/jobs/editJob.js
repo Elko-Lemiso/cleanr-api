@@ -36,6 +36,7 @@ router.post('/editJob', uploadCloud.array('images'), (req, res, next)=>{
 })
 
 router.post('/editJob/images', uploadCloud.array('images'), (req, res, next)=>{
+  debugger
   const findJob = req.body.jobId;
   let images = []
   if (req.files) {

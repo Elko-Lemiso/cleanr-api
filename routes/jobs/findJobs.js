@@ -7,7 +7,12 @@ router.get('/findJobs', (req, res, next) =>{
     Job
         .find({})
         .then((allJobs)=>{
-          res.json(allJobs);
+          debugger
+          allJobs.forEach(job => {
+            job.populate('creator')
+          });
+          res.json(allJobs)
+
         })
         .catch(error =>{
           console.log('This is the invalid field ->', error)
