@@ -14,6 +14,8 @@ router.get('/findjobs', (req, res, next) =>{
 
 router.get('/findjob/:id', (req, res, next) =>{
   Job.findById(req.params.id)
+    .populate("creator")
+    .populate("applicants")
     .then((job)=>{
       res.json(job);
     })

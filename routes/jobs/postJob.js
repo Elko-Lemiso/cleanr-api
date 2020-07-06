@@ -10,6 +10,7 @@ router.post('/postJob', (req, res, next) =>{
         title: req.body.title,
         description: req.body.description,
         rate: req.body.rate,
+        status: 'pending',
         dueDate: null,
         cleanerId : null,
         applicants : [],
