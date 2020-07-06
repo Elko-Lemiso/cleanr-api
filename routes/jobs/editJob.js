@@ -2,13 +2,14 @@ const express = require('express');
 const router  = express.Router();
 const uploadCloud = require('../../config/cloudinary');
 const Job = require('../../models/Job');
+const User = require('../../models/User')
 
 router.post('/editJob', uploadCloud.array('images'), (req, res, next)=>{
-  debugger
   const findJob = req.body.jobId;
+  
   Job
     .findByIdAndUpdate(findJob, {
-      title: req.body.title,
+        title: req.body.title,
         description: req.body.description,
         rate: req.body.rate,
         dueDate: req.body.dueDate,
@@ -23,7 +24,6 @@ router.post('/editJob', uploadCloud.array('images'), (req, res, next)=>{
         }
     })
     .then((response)=>{
-      debugger
       res.json({message: response});
     })
     .catch(error=>{
@@ -32,25 +32,18 @@ router.post('/editJob', uploadCloud.array('images'), (req, res, next)=>{
     })
 })
 
-router.post('/editJob/images', uploadCloud.array('images'), (req, res, next)=>{
+router.post('/editJob/images', uploadCloud.single('images'), (req, res, next)=>{
   debugger
-  const findJob = req.body.jobId;
-  let images = []
-  if (req.files) {
-   req.files.forEach(file => {
-        images.push({
-           fieldname: file.fieldname,
-           filename: file.filename,
-           originalname: file.originalname,
-           path: file.path
-       })
-     })
-   }
-  let change = {
-        images: images
-  }   
+  let newImage = {
+          fieldname: req.file.fieldname,
+           filename: req.file.filename,
+           originalname: req.file.originalname,
+           path: req.file.path
+  }
+
+ 
   Job
-    .findByIdAndUpdate({_id: `${findJob}`}, {$push : {images : {change}}})
+    .findByIdAndUpdate({_id : req.body.jobId }, {$push : {images : newImage} })
     .then((response)=>{
       debugger
       res.json({message: response});

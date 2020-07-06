@@ -15,6 +15,10 @@ router.post('/signup', uploadCloud.single('profilePicture'), (req, res, next) =>
         email: req.body.email,
         password: hash,
         userType: req.body.userType,
+        jobsUploaded : [],
+        jobsTaken : [],
+        moneySpend: [],
+        moneyEarned: [],
         address: {
           street: req.body.street,
           houseNr: req.body.houseNr,

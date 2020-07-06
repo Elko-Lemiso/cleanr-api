@@ -34,6 +34,6 @@ const jobSchema = new Schema({
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 })
 
-const Job = mongoose.model('job', jobSchema, 'jobs');
+const Job = mongoose.model('Job', jobSchema, 'jobs');
 
 module.exports = Job;

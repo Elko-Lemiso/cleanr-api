@@ -1,10 +1,12 @@
 const express = require('express');
 const router  = express.Router();
 const Job = require('../../models/Job')
-
+const User = require('../../models/User');
+const { response } = require('express');
 router.post('/postJob', (req, res, next) =>{
     debugger
     let newJob = {
+        creator : req.body.creator,
         title: req.body.title,
         description: req.body.description,
         rate: req.body.rate,
@@ -30,8 +32,8 @@ router.post('/postJob', (req, res, next) =>{
     Job
         .create(newJob)
         .then((job)=>{
-          console.log(job)
           res.status(200).json(job);
+          return User.findByIdAndUpdate({_id: req.body.creator}, {$push : {jobsUploaded : job.id} }) 
         })
         .catch(error =>{
           console.log('This is the invalid field ->', error)
