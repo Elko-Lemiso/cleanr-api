@@ -2,9 +2,9 @@ const express = require('express');
 const router  = express.Router();
 const Messages = require('../../models/Messages')
 
-router.post('/postmessage', (req ,res, next)=>{
+router.post('/getmessage', (req ,res, next)=>{
   debugger
-  Messages.create(req.body)
+  Messages.find(req.body)
     .then((message)=>{
       res.status(200).json(message);
     })

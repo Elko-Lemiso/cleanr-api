@@ -28,6 +28,7 @@ const jobSchema = new Schema({
   rate : {type : Number},
   address: addressSchema,
   images:[pictureSchema],
+  chat: {type: Schema.ObjectId , ref: 'Messages'},
   dueDate : {type : Date},
   status : {type: String, enum :['pending','inProgress','complete']},
 }, {

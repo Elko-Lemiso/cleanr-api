@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const {ObjectId, Date } = require('mongoose');
 const Schema = mongoose.Schema;
 
-const chatSchema = new Schema({
+const messagesSchema = new Schema({
   message: {type: String, required: [true, 'Message is required.']},
   userType: {type: String, enum :['client','cleaner'], required: [true, 'User type is required.']},
   from: {type: Schema.ObjectId, required: [true, 'Receiver is required.']},
@@ -12,7 +12,7 @@ const chatSchema = new Schema({
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 })
 
-const Chat = mongoose.model('Chat', chatSchema, 'chats');
+const Messages = mongoose.model('Messages', messagesSchema, 'messages');
 
 
-module.exports = Chat;
+module.exports = Messages;
