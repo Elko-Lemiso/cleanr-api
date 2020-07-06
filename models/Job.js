@@ -29,7 +29,7 @@ const jobSchema = new Schema({
   address: addressSchema,
   images:[pictureSchema],
   dueDate : {type : Date},
-  status : {type: String},
+  status : {type: String, enum :['pending','inProgress','complete']},
 }, {
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 })
