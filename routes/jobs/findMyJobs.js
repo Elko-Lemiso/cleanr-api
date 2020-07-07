@@ -4,7 +4,6 @@ const Job = require('../../models/Job')
 const User = require('../../models/User');
 
 router.get('/findMyjobs/:id', (req, res, next) =>{
-    debugger
     User
     .findById(req.params.id)
     .populate('jobsUploaded')
