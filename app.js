@@ -71,6 +71,7 @@ app.use('/jobs', require('./routes/jobs/findCleanerJobs'));
 app.use(('/jobs'), require('./routes/jobs/editJob'));
 app.use(('/conversations'), require('./routes/conversations/startConversation'));
 app.use(('/conversations'), require('./routes/conversations/getConversations'));
+app.use(('/conversations'), require('./routes/conversations/postMessages'));
 app.use(('/jobs'), require('./routes/jobs/application'));
 
 
