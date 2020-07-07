@@ -26,6 +26,11 @@ mongoose
     console.error('Error connecting to mongo', err)
   });
 
+// To fix the DeprecationWarning
+mongoose.set('useUnifiedTopology', true);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false)
+
 var app = express();
 app.use(cors({
   origin: true,

@@ -3,13 +3,12 @@ const router  = express.Router();
 const Message = require('../../models/Message')
 
 router.post('/postmessage', (req ,res, next)=>{
-  debugger
   const newMessage = {
     message: req.body.message,
     userType: req.body.userType,
-    from: req.body.userId,
+    from: req.body.from,
     jobId: req.body.jobId,
-    conversation: req.body.conversationId
+    conversationId: req.body.conversationId
   }
 
   Message.find()

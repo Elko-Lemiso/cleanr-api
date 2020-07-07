@@ -4,13 +4,14 @@ const Schema = mongoose.Schema;
 
 const converstationSchema = new Schema({
   jobId: {type: Schema.ObjectId, ref: 'Job'},
-  participants: [{type: Schema.ObjectId , ref: 'User'},],
+  participants: [{type: Schema.ObjectId , ref: 'User'}],
   messages: [{type: Schema.ObjectId, ref: 'Message'}]
 }, {
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 })
 
-const Message = mongoose.model('Conversation', converstationSchema, 'conversations');
+const Conversation = mongoose.model('Conversation', converstationSchema, 'conversations');
 
 
-module.exports = Message;
+
+module.exports = Conversation;

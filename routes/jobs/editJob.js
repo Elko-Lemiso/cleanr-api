@@ -33,7 +33,6 @@ router.post('/editJob', uploadCloud.array('images'), (req, res, next)=>{
 })
 
 router.post('/editJob/images', uploadCloud.single('images'), (req, res, next)=>{
-  debugger
   let newImage = {
           fieldname: req.file.fieldname,
            filename: req.file.filename,
@@ -45,7 +44,6 @@ router.post('/editJob/images', uploadCloud.single('images'), (req, res, next)=>{
   Job
     .findByIdAndUpdate({_id : req.body.jobId }, {$push : {images : newImage} })
     .then((response)=>{
-      debugger
       res.json({message: response});
     })
     .catch(error=>{
