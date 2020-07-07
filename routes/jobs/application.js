@@ -5,6 +5,7 @@ const Job = require('../../models/Job');
 const User = require('../../models/User')
 
 router.post('/application', (req, res, next)=>{
+  debugger
     Job
       .findByIdAndUpdate({_id : req.body.job }, {$push : {applicants : req.body.user} })
       .then((response)=>{
@@ -17,16 +18,15 @@ router.post('/application', (req, res, next)=>{
   })
 
   router.post('/applicationResponse', (req, res, next)=>{
-      debugger
       (req.body.status)? 
-    Job
+      Job
       .findByIdAndUpdate({_id : req.body.job }, {cleanerId : req.body.user})
       .then((response)=>{
         res.json({message: response});
       })
       .catch(error=>{
         res.json({error: error});
-        console.log(error, "Error updating userprofile");
+        console.log(error, "Error accepting application");
       })
       :
       Job

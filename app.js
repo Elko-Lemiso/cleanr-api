@@ -62,7 +62,7 @@ app.use(('/jobs'), require('./routes/jobs/postJob'));
 app.use('/jobs', require('./routes/jobs/findJobs'));
 app.use('/jobs', require('./routes/jobs/findMyJobs'));
 app.use(('/jobs'), require('./routes/jobs/editJob'));
-app.use(('/chats'), require('./routes/chats/postMessage'));
+app.use(('/conversations'), require('./routes/conversations/startConversation'));
 app.use(('/jobs'), require('./routes/jobs/application'));
 
 // catch 404 and forward to error handler

@@ -1,10 +1,18 @@
 const express = require('express');
 const router  = express.Router();
-const Messages = require('../../models/Messages')
+const Message = require('../../models/Message')
 
 router.post('/postmessage', (req ,res, next)=>{
   debugger
-  Messages.create(req.body)
+  const newMessage = {
+    message: req.body.message,
+    userType: req.body.userType,
+    from: req.body.userId,
+    jobId: req.body.jobId,
+    conversation: req.body.conversationId
+  }
+
+  Message.find()
     .then((message)=>{
       res.status(200).json(message);
     })
