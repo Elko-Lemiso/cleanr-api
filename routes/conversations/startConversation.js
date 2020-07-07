@@ -4,7 +4,6 @@ const Conversation = require('../../models/Conversation');
 const Message = require('../../models/Message')
 
 router.post('/startconversation', (req ,res, next)=>{
-  debugger
 
   const newConversation = {
     jobId: req.body.jobId,
@@ -21,7 +20,6 @@ router.post('/startconversation', (req ,res, next)=>{
 
   Message.create(newMessage)
     .then((message)=>{
-      debugger
       console.log(message);
         return Conversation.create({
           jobId: req.body.jobId,
