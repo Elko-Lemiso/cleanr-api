@@ -4,7 +4,6 @@ const Job = require('../../models/Job')
 const User = require('../../models/User');
 const { response } = require('express');
 router.post('/postJob', (req, res, next) =>{
-    debugger
     let newJob = {
         creator : req.body.creator,
         title: req.body.title,
@@ -26,7 +25,6 @@ router.post('/postJob', (req, res, next) =>{
         images: []
     }
     if (!newJob.title || !newJob.description) {
-        debugger
         res.json({ errorMessage: 'Please fill in the required fields.' });
         return;
     }

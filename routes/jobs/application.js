@@ -5,7 +5,6 @@ const Job = require('../../models/Job');
 const User = require('../../models/User')
 
 router.post('/application', (req, res, next)=>{
-  debugger
   Job
     .findByIdAndUpdate({_id : req.body.job }, {$push : {applicants : req.body.user} })
     .then((response)=>{
@@ -33,7 +32,6 @@ router.post('/application', (req, res, next)=>{
         Job
         .findByIdAndUpdate({_id : req.body.job }, {$pull : {applicants : req.body.user} })
         .then((response)=>{
-            debugger
             res.json({message: response});
         })
         .catch(error=>{

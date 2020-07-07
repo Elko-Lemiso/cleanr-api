@@ -8,7 +8,6 @@ router.get('/findMyjobs/:id', (req, res, next) =>{
     .findById(req.params.id)
     .populate('jobsUploaded')
     .then((jobs)=>{
-        debugger
       res.json(jobs);
     })
     .catch(error =>{
