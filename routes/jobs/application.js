@@ -17,12 +17,14 @@ router.post('/application', (req, res, next)=>{
 })
 
   router.post('/applicationResponse', (req, res, next)=>{
+    let array = []
       (req.body.status)? 
         Job
-        .findByIdAndUpdate({_id : req.body.job }, {cleanerId : req.body.user})
+        .findById({_id : req.body.job }).updateMany({cleanerId : req.body.user}, {status: "inProgress"}, { $set : {applicants : []}})
         .then((response)=>{
-          User.findByIdAndUpdate({_id : req.body.user }, {$push : {jobsTaken : req.body.job} })
+          debugger
           res.json({message: response});
+          return User.findByIdAndUpdate({_id : req.body.user }, {$push : {jobsTaken : req.body.job} })     
         })
         .catch(error=>{
             res.json({error: error});
