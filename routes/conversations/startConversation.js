@@ -5,12 +5,6 @@ const Message = require('../../models/Message')
 
 router.post('/startconversation', (req ,res, next)=>{
 
-  const newConversation = {
-    jobId: req.body.jobId,
-    participants: [req.body.clientId, req.body.cleanerId],
-    messages: []
-  }
-
   const newMessage = {
     message: req.body.message,
     userType: req.body.userType,
