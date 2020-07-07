@@ -12,6 +12,7 @@ var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
 var createError = require('http-errors');
 var axios = require('axios').default;
+var secret = process.env.SESSION_SECRET;
 
 mongoose
   .connect(`${connectionPassword}`, {
