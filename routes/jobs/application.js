@@ -18,9 +18,8 @@ router.post('/application', (req, res, next)=>{
 
   router.post('/applicationResponse', (req, res, next)=>{
       (req.body.status)? 
-     
         Job
-        .findByIdAndUpdate({_id : req.body.job }, {cleanerId : req.body.user})
+        .findByIdAndUpdate({_id : req.body.job }, {cleanerId : req.body.user}, {status: "inProgress"}, {applicants: null})
         .then((response)=>{
           User.findByIdAndUpdate({_id : req.body.user }, {$push : {jobsTaken : req.body.job} })
           res.json({message: response});
