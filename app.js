@@ -61,6 +61,7 @@ app.use('/jobs', require('./routes/jobs/editJob'));
 app.use(('/jobs'), require('./routes/jobs/postJob'));
 app.use('/jobs', require('./routes/jobs/findJobs'));
 app.use('/jobs', require('./routes/jobs/findMyJobs'));
+app.use('/jobs', require('./routes/jobs/findCleanerJobs'));
 app.use(('/jobs'), require('./routes/jobs/editJob'));
 app.use(('/jobs'), require('./routes/jobs/application'));
 // catch 404 and forward to error handler
