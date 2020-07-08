@@ -40,15 +40,10 @@ router.post('/application', (req, res, next)=>{
         })
         })
         .then(()=>{
-<<<<<<< HEAD
-          debugger
             Conversation.find({jobId :req.body.job})
             .then(conversation=>{
               res.json(conversation)
             })
-=======
-          Job.findById({_id : req.body.job}).populate('cleanerId').then((job)=>{res.json(job);})
->>>>>>> 5933138594b7f3c04c6f8f7d7a0fdc62b44b387b
           return User.findByIdAndUpdate({_id : req.body.user }, {$push : {jobsTaken : req.body.job} })     
         })
         .catch(error=>{
