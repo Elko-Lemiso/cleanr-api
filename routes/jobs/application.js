@@ -3,6 +3,7 @@ const router  = express.Router();
 const uploadCloud = require('../../config/cloudinary');
 const Job = require('../../models/Job');
 const User = require('../../models/User')
+const Conversation = require('../../models/Conversation');
 
 router.post('/application', (req, res, next)=>{
   debugger
@@ -42,7 +43,10 @@ router.post('/application', (req, res, next)=>{
         })
         .then(()=>{
           debugger
-          Job.findById({_id : req.body.job}).populate('cleanerId').then((job)=>{res.json(job);})
+            Conversation.find({jobId :req.body.job})
+            .then(conversation=>{
+              res.json(conversation)
+            })
           return User.findByIdAndUpdate({_id : req.body.user }, {$push : {jobsTaken : req.body.job} })     
         })
         .catch(error=>{
