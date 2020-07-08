@@ -4,6 +4,7 @@ const Job = require('../../models/Job')
 
 router.get('/findjobs', (req, res, next) =>{
   Job.find({})
+    .populate('creator')
     .then((allJobs)=>{
       res.json(allJobs);
     })
