@@ -6,7 +6,6 @@ const User = require('../../models/User')
 const Conversation = require('../../models/Conversation');
 
 router.post('/application', (req, res, next)=>{
-  debugger
   Job
     .findByIdAndUpdate({_id : req.body.job }, {$push : {applicants : req.body.user} })
     .then((response)=>{
@@ -19,7 +18,6 @@ router.post('/application', (req, res, next)=>{
 })
 
   router.post('/applicationResponse', (req, res, next)=>{
-    debugger
       (req.body.status)? 
         Job
         .find({_id : req.body.job})
@@ -42,11 +40,15 @@ router.post('/application', (req, res, next)=>{
         })
         })
         .then(()=>{
+<<<<<<< HEAD
           debugger
             Conversation.find({jobId :req.body.job})
             .then(conversation=>{
               res.json(conversation)
             })
+=======
+          Job.findById({_id : req.body.job}).populate('cleanerId').then((job)=>{res.json(job);})
+>>>>>>> 5933138594b7f3c04c6f8f7d7a0fdc62b44b387b
           return User.findByIdAndUpdate({_id : req.body.user }, {$push : {jobsTaken : req.body.job} })     
         })
         .catch(error=>{
@@ -57,7 +59,6 @@ router.post('/application', (req, res, next)=>{
         Job
         .findByIdAndUpdate({_id : req.body.job }, {$pull : {applicants : req.body.user} })
         .then((response)=>{
-            debugger
             res.json({message: response});
         })
         .catch(error=>{
