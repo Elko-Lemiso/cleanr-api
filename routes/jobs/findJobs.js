@@ -3,7 +3,7 @@ const router  = express.Router();
 const Job = require('../../models/Job')
 
 router.get('/findjobs', (req, res, next) =>{
-  Job.find({})
+  Job.find({}).sort({created_at: -1})
     .populate('creator')
     .then((allJobs)=>{
       res.json(allJobs);
