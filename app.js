@@ -1,23 +1,18 @@
 require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
+var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 var connectionPassword = process.env.CONNECTIONPASSWORD;
+var bodyParser   = require('body-parser');
 var secret = process.env.SECRET;
+var session = require("express-session");
+var MongoStore = require("connect-mongo")(session);
 var createError = require('http-errors');
 var axios = require('axios').default;
 var secret = process.env.SESSION_SECRET;
-var path = require('path');
-var bodyParser   = require('body-parser');
-
-var app = express();
-
-var cors = require('cors');
-app.use(cors({
-  origin: true,
-  credentials: true
-}))
 
 mongoose
   .connect(`${connectionPassword}`, {
@@ -32,20 +27,25 @@ mongoose
     console.error('Error connecting to mongo', err)
   });
 
-
-var mongoose = require('mongoose');
-var session = require("express-session");
-var MongoStore = require("connect-mongo")(session);
-var indexRouter = require('./routes/index');
-app.use('/', indexRouter);
-
 // To fix the DeprecationWarning
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false)
 
+var app = express();
+app.use(cors({
+  origin: true,
+  credentials: true
+}))
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(bodyParser.json())
+
 app.use(session({
-  secret: secret,
+  secret: `${secret}`,
   resave: true,
   saveUninitialized: true,
   cookie: { maxAge: 86400000 },
@@ -55,14 +55,8 @@ app.use(session({
   })
 }));
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(bodyParser.json())
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Protect middleware function
+var indexRouter = require('./routes/index');
+app.use('/', indexRouter);
 
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users/signup'));
@@ -84,22 +78,20 @@ app.use(('/conversations'), require('./routes/conversations/postMessages'));
 app.use(('/jobs'), require('./routes/jobs/application'));
 app.use(('/jobs'), require('./routes/jobs/jobComplete'));
 
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.json(err.status);
 });
-
 module.exports = app;
-
 app.listen(3000, 'localhost');
