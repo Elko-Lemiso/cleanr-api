@@ -41,10 +41,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
-var indexRouter = require('./routes/index');
-app.use('/', indexRouter);
+app.use(express.static(__dirname + '/public'))
+
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+})
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -94,3 +96,4 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 app.listen(3000, 'localhost');
+
