@@ -42,12 +42,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/public'))
-
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-})
-
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
