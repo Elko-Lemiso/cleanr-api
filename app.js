@@ -5,11 +5,9 @@ var path = require('path');
 var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var bodyParser   = require('body-parser');
 var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
 var createError = require('http-errors');
-var axios = require('axios').default;
 var app = express();
 var cors = require('cors');
 
@@ -39,7 +37,6 @@ mongoose.set('useFindAndModify', false);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -90,5 +87,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-app.listen(3000, 'localhost');
 
