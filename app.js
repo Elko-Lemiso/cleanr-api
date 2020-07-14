@@ -9,7 +9,9 @@ var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
 var createError = require('http-errors');
 var app = express();
+var localhost = process.env.PORT;
 var cors = require('cors');
+
 
 app.use(cors({
   origin: true,
@@ -87,4 +89,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+app.listen(localhost, () => console.log(`App listening on ${localhost}`))
 
