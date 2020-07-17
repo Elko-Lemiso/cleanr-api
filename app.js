@@ -12,9 +12,15 @@ var app = express();
 var localhost = process.env.PORT;
 var cors = require('cors');
 
+
+// app.use(cors({
+//   origin: "https://cleanr.netlify.app/",
+//   credentials: true
+// }));
+
 app.use(cors({
-  origin: true,
-  credentials: true
+    origin: [process.env.client_origin_a, process.env.client_origin_b],
+    credentials: true
 }));
 
 mongoose
@@ -88,5 +94,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-app.listen(localhost, () => console.log(`App listening on ${localhost}`))
+// app.listen(localhost, () => console.log(`App listening on ${localhost}`))
 
