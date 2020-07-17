@@ -12,14 +12,10 @@ var app = express();
 var localhost = process.env.PORT;
 var cors = require('cors');
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
-
 app.use(cors({
   origin: true,
-  credentials: true
+  credentials: true,
+  header : 'Access-Control-Allow-Origin'
 }));
 
 mongoose
@@ -56,6 +52,7 @@ app.use(session({
     ttl: 24 * 60 * 60 // 1 day
   })
 }));
+
 
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users/signup'));
