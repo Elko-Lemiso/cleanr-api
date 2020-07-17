@@ -43,7 +43,7 @@ router.post('/signup', uploadCloud.single('profilePicture'), (req, res, next) =>
     // to check if all fields are filled
     if (!newUser.email || !newUser.password || !newUser.firstname || !newUser.lastname || !newUser.userType 
       || !newUser.address.street || !newUser.address.houseNr || !newUser.address.zipCode || !newUser.address.city) {
-        res.json({ errorMessage: 'Please fill in the required fields.' });
+        res.json({ error: 'Please fill in the required fields.' });
         return;
     }
     
@@ -52,7 +52,7 @@ router.post('/signup', uploadCloud.single('profilePicture'), (req, res, next) =>
     if (!regex.test(newUser.password)) {
     res
         .status(400)
-        .json({ errorMessage: 'Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.' });
+        .json({ error: 'Password needs to have at least 6 characters and must contain at least one number, one lowercase and one uppercase letter.' });
     return;
     }
 

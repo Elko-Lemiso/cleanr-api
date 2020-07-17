@@ -12,6 +12,10 @@ var app = express();
 var localhost = process.env.PORT;
 var cors = require('cors');
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 app.use(cors({
   origin: true,
