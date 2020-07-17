@@ -14,8 +14,7 @@ var cors = require('cors');
 
 app.use(cors({
   origin: true,
-  credentials: true,
-  header : 'Access-Control-Allow-Origin'
+  credentials: true
 }));
 
 mongoose
@@ -52,7 +51,6 @@ app.use(session({
     ttl: 24 * 60 * 60 // 1 day
   })
 }));
-
 
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users/signup'));
