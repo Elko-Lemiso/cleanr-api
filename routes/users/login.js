@@ -9,26 +9,27 @@ router.post("/login", (req, res, next)=>{
   if (email === "" || password === "") {
     res
     .status(401)
-    .json({ errorMessage: 'Unauthorized, nothing passed into fields' });
+    .json({ error: 'Unauthorized, nothing passed into fields' });
       return;
     }
   User.findOne({"email": email})
   .then(user =>{
         if (!user) {
-          res.json({errorMessage: "The email doesn't exist." });
+          res.status(401).json({error: "email" });
           return;
         }
         if(bcrypt.compareSync(password, user.password)){
+          debugger
           let {email, firstname, lastname, id, userType} = user;
           let sessionData = {email, firstname, lastname, id, userType};
           req.session.user = sessionData;
           res.status(200).json({sessionData});
         }else{
-          res.status(401).json({errorMessage: 'Unauthorized, wrong password'});
+          res.status(401).json({error: 'password'});
         }
   })
   .catch(error => {
-      next(error);
+    res.status(401).json({error: 'Unauthorized'});
   })
 })
 module.exports = router;

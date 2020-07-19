@@ -5,17 +5,22 @@ var path = require('path');
 var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var bodyParser   = require('body-parser');
 var session = require("express-session");
 var MongoStore = require("connect-mongo")(session);
 var createError = require('http-errors');
-var axios = require('axios').default;
 var app = express();
+var localhost = process.env.PORT;
 var cors = require('cors');
 
+
+// app.use(cors({
+//   origin: "https://cleanr.netlify.app/",
+//   credentials: true
+// }));
+
 app.use(cors({
-  origin: true,
-  credentials: true
+    origin: [process.env.client_origin_a, process.env.client_origin_b],
+    credentials: true
 }));
 
 mongoose
@@ -40,11 +45,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-
-var indexRouter = require('./routes/index');
-app.use('/', indexRouter);
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -94,4 +95,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-app.listen(3000, 'localhost');
+// app.listen(localhost, () => console.log(`App listening on ${localhost}`))
+
