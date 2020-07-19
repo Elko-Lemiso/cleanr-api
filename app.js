@@ -70,8 +70,6 @@ app.use('/jobs', require('./routes/jobs/postJob'));
 app.use('/jobs', require('./routes/jobs/editJob'));
 app.use(('/jobs'), require('./routes/jobs/postJob'));
 app.use('/jobs', require('./routes/jobs/findJobs'));
-app.use('/jobs', require('./routes/jobs/findMyJobs'));
-app.use('/jobs', require('./routes/jobs/findCleanerJobs'));
 app.use(('/jobs'), require('./routes/jobs/editJob'));
 app.use(('/conversations'), require('./routes/conversations/startConversation'));
 app.use(('/conversations'), require('./routes/conversations/getConversations'));
@@ -95,5 +93,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-// app.listen(localhost, () => console.log(`App listening on ${localhost}`))
+app.listen(localhost, () => console.log(`App listening on ${localhost}`))
 

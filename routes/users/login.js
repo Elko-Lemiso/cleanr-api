@@ -19,7 +19,6 @@ router.post("/login", (req, res, next)=>{
           return;
         }
         if(bcrypt.compareSync(password, user.password)){
-          debugger
           let {email, firstname, lastname, id, userType} = user;
           let sessionData = {email, firstname, lastname, id, userType};
           req.session.user = sessionData;
