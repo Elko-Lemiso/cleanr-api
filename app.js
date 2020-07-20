@@ -58,6 +58,7 @@ app.use(session({
   })
 }));
 
+
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users/signup'));
 app.use('/users', require('./routes/users/login'));
@@ -69,8 +70,6 @@ app.use('/jobs', require('./routes/jobs/postJob'));
 app.use('/jobs', require('./routes/jobs/editJob'));
 app.use(('/jobs'), require('./routes/jobs/postJob'));
 app.use('/jobs', require('./routes/jobs/findJobs'));
-app.use('/jobs', require('./routes/jobs/findMyJobs'));
-app.use('/jobs', require('./routes/jobs/findCleanerJobs'));
 app.use(('/jobs'), require('./routes/jobs/editJob'));
 app.use(('/conversations'), require('./routes/conversations/startConversation'));
 app.use(('/conversations'), require('./routes/conversations/getConversations'));
