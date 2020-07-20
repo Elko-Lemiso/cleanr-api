@@ -4,6 +4,14 @@ const User = require('../../models/User')
 const uploadCloud = require('../../config/cloudinary');
 
 router.post('/signup', uploadCloud.single('profilePicture'), (req, res, next) =>{
+  
+  if (!req.body.firstname || !req.body.lastname || !req.body.email || !req.body.password || !req.body.userType 
+    || !req.body.street || !req.body.houseNr || !req.body.zipCode || !req.body.city) {
+      res
+      .status(401)
+      .json({error: 'Please fill in the required fields.'});
+      return;
+  }
     const bcrypt = require('bcrypt');
     const saltRounds = 10;
     const myPlaintextPassword = req.body.password;
@@ -41,11 +49,7 @@ router.post('/signup', uploadCloud.single('profilePicture'), (req, res, next) =>
     }
 
     // to check if all fields are filled
-    if (!newUser.email || !newUser.password || !newUser.firstname || !newUser.lastname || !newUser.userType 
-      || !newUser.address.street || !newUser.address.houseNr || !newUser.address.zipCode || !newUser.address.city) {
-        res.json({ error: 'Please fill in the required fields.' });
-        return;
-    }
+    
     
     // make sure passwords are strong:
     const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
@@ -66,7 +70,9 @@ router.post('/signup', uploadCloud.single('profilePicture'), (req, res, next) =>
           res.status(200).json(sessionData);
         })
         .catch(error =>{
-          console.log('This is the invalid field ->', error)
+          res
+        .status(400)
+        .json({error});
       })
 })
 
