@@ -6,10 +6,14 @@ const bcrypt = require('bcrypt');
 router.post("/login", (req, res, next)=>{
   const email = req.body.email;
   const password = req.body.password;
-  if (email === "" || password === "") {
+  if (email === undefined || password === undefined) {
     res
     .status(401)
+<<<<<<< HEAD
     .json({ errorMessage: 'Unauthorized, nothing passed into fields' });
+=======
+    .json({ error: 'emptyField'});
+>>>>>>> final
       return;
     }
   User.findOne({"email": email})
