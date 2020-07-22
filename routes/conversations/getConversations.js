@@ -7,7 +7,7 @@ const User = require('../../models/User')
 router.get('/myconversations', (req, res, next) => {
   const userId = req.query.userId;
 
-  Conversation.find({participants: userId}).sort({updated_at: -1})
+  Conversation.find({participants: userId}).sort({created_at: -1})
     .populate('participants')
     .populate('jobId')
     .populate('messages')
