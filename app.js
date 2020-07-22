@@ -88,5 +88,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-// app.listen(localhost, () => console.log(`App listening on ${localhost}`))
+app.listen(localhost, () => console.log(`App listening on ${localhost}`))
 
